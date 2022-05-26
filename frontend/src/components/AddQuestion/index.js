@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 
 function Index() {
   const user = useSelector(selectUser);
+  console.log(user);
   var toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],
@@ -74,6 +75,7 @@ function Index() {
   };
 
   const handleSubmit = async (e) => {
+    console.log(user);
     e.preventDefault();
 
     if (title !== "" && body !== "") {
@@ -138,7 +140,7 @@ function Index() {
               <div className="title">
                 <h3>Tags</h3>
                 <small>
-                  Add up to 5 tags to describe what your question is about
+                Add up to 5 tags to describe what your question is about 
                 </small>
                 {/* <input
                   value={tag}

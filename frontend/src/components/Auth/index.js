@@ -1,7 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithPopup,updateProfile,
 } from "firebase/auth";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -43,19 +43,24 @@ function Index() {
       });
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = async(e) => 
+  {
+    e.preventDefault();
     setError();
+    console.log('In ssignIn button'+ email + password);
     setLoading(true);
     if (email === "" || password === "") {
+      console.log("empty email");
       setError("Required field is missing");
       setLoading(false);
     } else if (!validateEmail(email)) {
+      console.log("invalid email");
       setError("Email is malformed");
       setLoading(false);
     } else {
-      signInWithEmailAndPassword(auth, email, password)
+      const check = await signInWithEmailAndPassword(auth, email, password)
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           history.push("/");
           setLoading(false);
         })
@@ -64,10 +69,12 @@ function Index() {
           setError(error.message);
           setLoading(false);
         });
+        console.log(check);
     }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async(e) => {
+    e.preventDefault();
     setError("");
     setLoading(false);
     if (email === "" || password === "" || username === "") {
@@ -77,8 +84,14 @@ function Index() {
       setError("Email is malformed");
       setLoading(false);
     } else {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
+     await createUserWithEmailAndPassword(auth, email, password)
+        .then(async (res) => {
+         let user= auth.currentUser;
+
+          // Passing user's object as first param and updating it
+           updateProfile(user, {
+              'displayName': username,
+          })
           console.log(res);
           history.push("/");
           setLoading(false);
@@ -125,6 +138,7 @@ function Index() {
                 <div className="input-field">
                   <p>Username</p>
                   <input
+                  name="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     type="text"
@@ -133,6 +147,7 @@ function Index() {
                 <div className="input-field">
                   <p>Email</p>
                   <input
+                  name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     type="text"
@@ -141,6 +156,7 @@ function Index() {
                 <div className="input-field">
                   <p>Password</p>
                   <input
+                  name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
@@ -160,11 +176,19 @@ function Index() {
               <>
                 <div className="input-field">
                   <p>Email</p>
-                  <input type="text" />
+                  <input type="text"
+                   value={email}
+                   onChange={(e) => setEmail(e.target.value)}
+                   name="email"
+                  />
                 </div>
                 <div className="input-field">
                   <p>Password</p>
-                  <input type="password" />
+                  <input type="password"
+                   value={password}
+                   name="password"
+                   onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <button
                   onClick={handleSignIn}

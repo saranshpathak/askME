@@ -33,14 +33,14 @@ function Header() {
     return color;
   }
 
-  function stringAvatar(name) {
-    return {
+   function stringAvatar(name) {
+   /* return {
       sx: {
-        bgcolor: name ? stringToColor(name) : "rgba(255,255,255,0.8)",
-      },
-      children: name && `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-    };
-  }
+         bgcolor: name ? stringToColor(name) : "rgba(255,255,255,0.8)",
+       },
+       children: name && `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+     };*/
+   }
   return (
     <header>
       <div className="header-container">

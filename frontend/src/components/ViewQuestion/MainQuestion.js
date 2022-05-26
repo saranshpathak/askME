@@ -74,7 +74,7 @@ function MainQuestion() {
   const [comment, setComment] = useState("");
   // const [comments, setComments] = useState([]);
   const user = useSelector(selectUser);
-
+  //console.log(user );
   const handleQuill = (value) => {
     setAnswer(value);
   };
@@ -85,6 +85,8 @@ function MainQuestion() {
         .get(`/api/question/${id}`)
         .then((res) => setQuestionData(res.data[0]))
         .catch((err) => console.log(err));
+
+       // console.log(questionData);
     }
     getFunctionDetails();
   }, [id]);
@@ -136,6 +138,7 @@ function MainQuestion() {
 
     // setShow(true)
   };
+
   return (
     <div className="main">
       <div className="main-container">

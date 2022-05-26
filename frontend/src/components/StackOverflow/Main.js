@@ -47,8 +47,8 @@ function Main({ questions }) {
           </div>
         </div>
         <div className="questions">
-          {questions?.map((_q) => (
-            <div className="question">
+          {questions?.map((_q,key) => (
+            <div className="question" key={key}>
               <AllQuestions data={_q} />
             </div>
           ))}
