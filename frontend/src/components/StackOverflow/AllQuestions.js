@@ -4,11 +4,24 @@ import "./css/AllQuestions.css";
 import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
 import { stringAvatar } from "../../utils/Avatar";
+import axios from 'axios';
 
 function AllQuestions({ data }) {
+  const newCount = data.count
+const [count,setCount] = useState(newCount);
+  const  id =data._id;
+ 
+
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) +
      "..." : str;
+  }
+
+  const updateCount = async()=>{
+      await axios.put(`/api/votes/views/${id}`,{count:count}).then((res)=>{
+          console.log(res);
+      }).catch((err)=>console.log(err.message)
+      )
   }
   //console.log(data);
 
@@ -33,7 +46,7 @@ function AllQuestions({ data }) {
           </div>
         </div>
         <div className="question-answer">
-          <Link to={`/question?q=${data?._id}`}>{data.title}</Link>
+          <Link to={`/question?q=${data?._id}`} onClick={updateCount}>{data.title}</Link>
 
           {/* <a href=>{data.title}</a> */}
 

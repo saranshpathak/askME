@@ -90,7 +90,7 @@ function MainQuestion() {
 
        
     }
-    getFunctionDetails();
+     getFunctionDetails();
     console.log(questionData);
   }, [id]);
 
@@ -99,6 +99,21 @@ function MainQuestion() {
       .get(`/api/question/${id}`)
       .then((res) => setQuestionData(res.data[0]))
       .catch((err) => console.log(err));
+  }
+
+  const upvote = async()=>{
+   await axios.put(`/api/votes/like/${id}`,{user:{user}}).then((res)=>{
+     console.log(res);
+   }).catch((err)=>{
+     console.log(err);
+   })
+  }
+  const downvote = async()=>{
+    await axios.put(`/api/votes/dislike/${id}`,{user:user}).then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    })
   }
 
   // console.log(questionData);
@@ -172,11 +187,11 @@ function MainQuestion() {
           <div className="all-questions-container">
             <div className="all-questions-left">
               <div className="all-options">
-                <p className="arrow">▲</p>
+                <p className="arrow" onClick={upvote}>▲</p>
 
-                <p className="arrow">{questionData?.votes? questionData?.votes.length:"2"}</p>
+                <p className="arrow">{questionData?.votes?.length - (questionData?.downVotes.length?questionData?.downVotes.length:0)}</p>
 
-                <p className="arrow">▼</p>
+                <p className="arrow" onClick={downvote}>▼</p>
 
                 <BookmarkIcon />
 

@@ -69,4 +69,21 @@ router.put("/dislike/:id", async (req, res) => {
   }
 });
 
+
+router.put("/views/:id", async (req, res) => {
+  try {
+
+    const { count } = req.body;
+    console.log(count+"   count");
+     const updateCount= await QuestionDB.findById(req.params.id);
+      updateCount.views = Number(count)+1;
+      updateCount.save();
+      return res.status(201).json({ msg: "View Incremented Successfully" });
+
+  } catch(err){
+    console.log(err);
+  }
+   
+});
+
 module.exports = router;

@@ -8,6 +8,7 @@ const questionSchema = new mongoose.Schema({
   }],
   downVotes:[{user:Object}],
   views:Number,
+  
   tags: [],
   created_at: {
     type: Date,
