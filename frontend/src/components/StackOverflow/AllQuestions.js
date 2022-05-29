@@ -20,7 +20,7 @@ function AllQuestions({ data }) {
         <div className="all-questions-left">
           <div className="all-options">
             <div className="all-option">
-              <p>{data?.votes?.length}</p>
+              <p>{data?.votes?.length - (data?.downVotes?.length?data?.downVotes?.length:0)}</p>
               <span>votes</span>
             </div>
             <div className="all-option">
