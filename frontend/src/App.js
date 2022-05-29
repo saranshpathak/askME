@@ -20,9 +20,11 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
+    const fun= async ()=>{
+    await auth.onAuthStateChanged(async(authUser) => {
+      console.log(authUser);
       if (authUser) {
-        dispatch(
+     const x= await dispatch(
           login({
             uid: authUser.uid,
             photo: authUser.photoURL,
@@ -30,12 +32,15 @@ function App() {
             email: authUser.email,
           })
         );
+      //  console.log(x)
       } else {
         dispatch(logout());
       }
       // console.log(authUser);
     });
-  }, [dispatch]);
+  }
+fun()
+}, [dispatch]);
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route

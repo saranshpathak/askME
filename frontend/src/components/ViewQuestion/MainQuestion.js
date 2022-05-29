@@ -13,6 +13,7 @@ import { selectUser } from "../../feature/userSlice";
 import { stringAvatar } from "../../utils/Avatar";
 
 function MainQuestion() {
+
   var toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],
@@ -72,9 +73,10 @@ function MainQuestion() {
   const [answer, setAnswer] = useState("");
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
+  const [count,setCount] = useState();
   // const [comments, setComments] = useState([]);
   const user = useSelector(selectUser);
-  //console.log(user );
+  
   const handleQuill = (value) => {
     setAnswer(value);
   };
@@ -86,9 +88,10 @@ function MainQuestion() {
         .then((res) => setQuestionData(res.data[0]))
         .catch((err) => console.log(err));
 
-       // console.log(questionData);
+       
     }
     getFunctionDetails();
+    console.log(questionData);
   }, [id]);
 
   async function getUpdatedAnswer() {
@@ -161,7 +164,7 @@ function MainQuestion() {
               Active<span>today</span>
             </p>
             <p>
-              Viewed<span>43times</span>
+              Viewed<span>{questionData?.views?questionData?.views:"6"} times</span>
             </p>
           </div>
         </div>
@@ -171,7 +174,7 @@ function MainQuestion() {
               <div className="all-options">
                 <p className="arrow">▲</p>
 
-                <p className="arrow">0</p>
+                <p className="arrow">{questionData?.votes? questionData?.votes.length:"2"}</p>
 
                 <p className="arrow">▼</p>
 

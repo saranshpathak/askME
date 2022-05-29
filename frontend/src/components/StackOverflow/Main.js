@@ -3,17 +3,20 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import "./css/Main.css";
 import AllQuestions from "./AllQuestions";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../feature/userSlice";
 // import axios from "axios";
 
 function Main({ questions }) {
   // const [questions, setQuestions] = useState([]);
-
+const user = useSelector(selectUser);
   // console.log(questions);
   return (
     <div className="main">
       <div className="main-container">
         <div className="main-top">
           <h2>All Questions</h2>
+          <p>{user?.displayName?user.displayName:"null"}</p>
           <Link to="/add-question">
             <button>Ask Question</button>
           </Link>

@@ -12,7 +12,6 @@ import { useHistory } from "react-router-dom";
 
 function Index() {
   const user = useSelector(selectUser);
-  console.log(user);
   var toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],

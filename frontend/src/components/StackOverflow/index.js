@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar";
 import "./css/index.css";
 import Main from "./Main";
 import axios from "axios";
-
 function Index() {
   const [questions, setQuestions] = useState([]);
 

@@ -85,15 +85,15 @@ function Index() {
       setLoading(false);
     } else {
      await createUserWithEmailAndPassword(auth, email, password)
-        .then(async (res) => {
+        .then( (res) => {
          let user= auth.currentUser;
 
           // Passing user's object as first param and updating it
-           updateProfile(user, {
+            updateProfile(user, {
               'displayName': username,
           })
           console.log(res);
-          history.push("/");
+         setRegister(false);
           setLoading(false);
         })
         .catch((error) => {
