@@ -16,7 +16,7 @@ const user = useSelector(selectUser);
       <div className="main-container">
         <div className="main-top">
           <h2>All Questions</h2>
-          <p>{user?.displayName?user.displayName:"null"}</p>
+          <p>Welcome {user?.displayName?user.displayName:"null"}</p>
           <Link to="/add-question">
             <button>Ask Question</button>
           </Link>

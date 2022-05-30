@@ -73,7 +73,7 @@ function MainQuestion() {
   const [answer, setAnswer] = useState("");
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
-  const [count,setCount] = useState();
+  const [refresh,setRefresh] = useState(false);
   // const [comments, setComments] = useState([]);
   const user = useSelector(selectUser);
   
@@ -92,7 +92,7 @@ function MainQuestion() {
     }
      getFunctionDetails();
     console.log(questionData);
-  }, [id]);
+  }, [refresh,id]);
 
   async function getUpdatedAnswer() {
     await axios
@@ -102,7 +102,8 @@ function MainQuestion() {
   }
 
   const upvote = async()=>{
-   await axios.put(`/api/votes/like/${id}`,{user:{user}}).then((res)=>{
+   await axios.put(`/api/votes/like/${id}`,{user:user}).then((res)=>{
+     setRefresh(true);
      console.log(res);
    }).catch((err)=>{
      console.log(err);
@@ -110,6 +111,7 @@ function MainQuestion() {
   }
   const downvote = async()=>{
     await axios.put(`/api/votes/dislike/${id}`,{user:user}).then((res)=>{
+      setRefresh(true)
       console.log(res);
     }).catch((err)=>{
       console.log(err);
@@ -179,7 +181,7 @@ function MainQuestion() {
               Active<span>today</span>
             </p>
             <p>
-              Viewed<span>{questionData?.views?questionData?.views:"6"} times</span>
+              Viewed<span>{questionData?.views?questionData?.views:"0"} times</span>
             </p>
           </div>
         </div>
@@ -221,7 +223,7 @@ function MainQuestion() {
                       <p key={_qd?._id}>
                         {_qd.comment}{" "}
                         <span>
-                          - {_qd.user ? _qd.user.displayName : "Nate Eldredge"}
+                          - {_qd.user ? _qd.user.displayName : "Anonymous"}
                         </span>{" "}
                         {"    "}
                         <small>

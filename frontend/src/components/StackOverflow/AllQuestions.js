@@ -7,8 +7,11 @@ import { stringAvatar } from "../../utils/Avatar";
 import axios from 'axios';
 
 function AllQuestions({ data }) {
-  const newCount = data.count
-const [count,setCount] = useState(newCount);
+ // console.log({data});
+  const {views}=data;
+ 
+  
+const [cnt,setCnt] = useState(views);
   const  id =data._id;
  
 
@@ -18,7 +21,8 @@ const [count,setCount] = useState(newCount);
   }
 
   const updateCount = async()=>{
-      await axios.put(`/api/votes/views/${id}`,{count:count}).then((res)=>{
+   console.log(cnt);
+      await axios.put(`/api/votes/views/${id}`,{count:cnt}).then((res)=>{
           console.log(res);
       }).catch((err)=>console.log(err.message)
       )
@@ -41,7 +45,7 @@ const [count,setCount] = useState(newCount);
               <span>answers</span>
             </div>
             <div className="all-option">
-              <small>{data?.views?data?.view:6}</small>
+              <small>{data?.views?data?.views:0}</small>
             </div>
           </div>
         </div>

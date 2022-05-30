@@ -9,26 +9,25 @@ router.put("/like/:id", async (req, res) => {
   try {
     const Question = await QuestionDB.findById(req.params.id);
     const { user } = req.body;
-     console.log(user.uid);
     //check if the Question already liked by this user
     if (
-      Question.votes.filter((vote) => vote?.user?.toString() == user.uid)
+      Question.votes.filter((vote) => vote?.user?.toString() == user.user.uid)
         .length > 0
     ) {
       return res.status(201).json({ msg: "Already Upvote" });
     }
     if (
-      Question.downVotes?.filter((vote) => vote?.user?.toString() == user.uid)
+      Question.downVotes?.filter((vote) => vote?.user?.toString() == user.user.uid)
         .length > 0
     ) {
       const removeIndex = Question.downVotes
         .map((vote) => vote.user.toString())
-        .indexOf(user.uid);
+        .indexOf(user.user.uid);
       Question.downVotes.splice(removeIndex, 1);
       await Question.save();
       return res.status(201).json({ msg: "DownVote Removed" });
     }
-    Question.votes.unshift({ user: user.uid });
+    Question.votes.unshift({ user: user.user.uid });
     await Question.save();
     res.json("post likes");
   } catch (err) {
@@ -41,7 +40,7 @@ router.put("/dislike/:id", async (req, res) => {
   try {
     const Question = await QuestionDB.findById(req.params.id);
     const { user } = req.body;
-    // console.log(user.uid);
+     console.log(user.uid);
     //check if the Question already liked by this user
     if (
       Question.downVotes.filter((vote) => vote?.user?.toString() == user.uid)

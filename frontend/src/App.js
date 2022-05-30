@@ -24,7 +24,7 @@ function App() {
     await auth.onAuthStateChanged(async(authUser) => {
       console.log(authUser);
       if (authUser) {
-     const x= await dispatch(
+     await dispatch(
           login({
             uid: authUser.uid,
             photo: authUser.photoURL,
@@ -32,7 +32,7 @@ function App() {
             email: authUser.email,
           })
         );
-      //  console.log(x)
+ 
       } else {
         dispatch(logout());
       }
