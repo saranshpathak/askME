@@ -10,7 +10,7 @@ import { selectUser } from "../../feature/userSlice";
 function Main({ questions }) {
   // const [questions, setQuestions] = useState([]);
 const user = useSelector(selectUser);
-  // console.log(questions);
+   console.log(user);
   return (
     <div className="main">
       <div className="main-container">

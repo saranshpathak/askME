@@ -76,7 +76,8 @@ function MainQuestion() {
   const [refresh,setRefresh] = useState(false);
   // const [comments, setComments] = useState([]);
   const user = useSelector(selectUser);
-  
+  const uid = user.uid;
+  console.log(uid);
   const handleQuill = (value) => {
     setAnswer(value);
   };
@@ -102,7 +103,7 @@ function MainQuestion() {
   }
 
   const upvote = async()=>{
-   await axios.put(`/api/votes/like/${id}`,{user:user}).then((res)=>{
+   await axios.put(`/api/votes/like/${id}`,{uid:uid}).then((res)=>{
      setRefresh(true);
      console.log(res);
    }).catch((err)=>{
@@ -110,7 +111,7 @@ function MainQuestion() {
    })
   }
   const downvote = async()=>{
-    await axios.put(`/api/votes/dislike/${id}`,{user:user}).then((res)=>{
+    await axios.put(`/api/votes/dislike/${id}`,{uid:uid}).then((res)=>{
       setRefresh(true)
       console.log(res);
     }).catch((err)=>{
